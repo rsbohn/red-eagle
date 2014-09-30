@@ -89,7 +89,7 @@ B.splice = function(s, marker) {
     var indent = this.lines.indent();
     var marked = s.split("\n").map(function(t){return indent+"  "+marker+" "+t}).join("\n");
     this.forward_eol();
-    document.execCommand("insertText", false, "\n"+marked+"\n");
+    document.execCommand("insertText", false, "\n"+marked+"\n") || this.update(this.hard_splice(s,marker));
 };
 
 B.update = function(t){
