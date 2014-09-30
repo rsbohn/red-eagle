@@ -67,7 +67,13 @@ B.lines = {
     }
 };
 
-B.splice = function(s, marker) {
+B.forward_eol = function() {
+    for (x = this.selectionStart; x < this.value.length && this.value[x] != "\n"; x++);
+    this.selectionEnd=x+1;
+    this.selectionStart=x;
+};
+
+B.hard_splice = function(s, marker) {
     var v = this.lines.before(true) + "\n";
     var m = v.length;
     var indent = this.lines.indent();
@@ -76,7 +82,15 @@ B.splice = function(s, marker) {
     var n = v.length;
     v += "\n" + this.lines.after();
     return {value: v, start: m, end: n};
-}
+};
+
+B.splice = function(s, marker) {
+    marker = marker || "|";
+    var indent = this.lines.indent();
+    var marked = s.split("\n").map(function(t){return indent+"  "+marker+" "+t}).join("\n");
+    this.forward_eol();
+    document.execCommand("insertText", false, "\n"+marked);
+};
 
 B.update = function(t){
     this.value = t.value;
