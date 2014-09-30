@@ -103,8 +103,7 @@ B.ondblclick = function(e) {
     e.preventDefault();
     if (!Tree(this).has_children()) {
 	var line = this.selected_line(true);
-	var s = this.splice("cows");
-	this.update(s);
+	this.splice("cows");
     } else {
 	var s = Tree(this).remove_children();
 	this.update(s);
