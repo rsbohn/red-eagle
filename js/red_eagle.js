@@ -12,6 +12,7 @@ function maybe(value) {
   return obj;
 };
 
+
 var B = document.getElementById("B");
 B.getTag = function(){
     return B.value.split("\n")[0];
@@ -89,7 +90,12 @@ B.splice = function(s, marker) {
     var indent = this.lines.indent();
     var marked = s.split("\n").map(function(t){return indent+"  "+marker+" "+t}).join("\n");
     this.forward_eol();
-    document.execCommand("insertText", false, "\n"+marked+"\n") || this.update(this.hard_splice(s,marker));
+    try {
+	if (!document.execCommand("insertText", false, "\n"+marked+"\n"))
+	    throw "must be IE";
+    } catch (e) {
+	this.update(this.hard_splice(s,marker));
+    }
 };
 
 B.update = function(t){
@@ -100,7 +106,7 @@ B.update = function(t){
 };
 
 B.ondblclick = function(e) {
-    e.defaultPrevented=true;
+    //e.defaultPrevented=true;
     if (this.lines.current() === "") return;
     if (!Tree(this).has_children()) {
 	this.splice("cows");
@@ -124,7 +130,6 @@ var Tree = function(that){
 	return a.match(/^( *)/)[1].length > indent;
     }
     T.prototype.remove_children = function() {
-	console.log("remove children");
 	var indent = this.client.lines.indent();
 	this.client.forward_eol();
 	this.client.selectionStart++;
@@ -138,7 +143,16 @@ var Tree = function(that){
 	}
 	this.client.selectionStart = start;
 	this.client.selectionEnd = end;
-	document.execCommand("delete");
+	try {
+	    if (!document.execCommand("delete"))
+		throw "must be IE";
+	} catch (e) {
+	    this.client.update({
+		value: this.client.value.substring(0,start)+this.client.value.substring(end),
+		start: start,
+		end: end
+	    });
+	}
 	return this.client;
     }
     return new T(that);
