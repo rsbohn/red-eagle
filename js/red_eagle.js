@@ -119,10 +119,12 @@ var Tree = function(that){
 	this.client = that;
     };
     T.prototype.has_children = function() {
+	var indent = this.client.lines.indent().length;
 	var a = this.client.lines.after().split("\n")[0];
-	return a.match(/^( *)/)[1].length > this.client.lines.indent();
+	return a.match(/^( *)/)[1].length > indent;
     }
     T.prototype.remove_children = function() {
+	console.log("remove children");
 	var indent = this.client.lines.indent();
 	this.client.forward_eol();
 	this.client.selectionStart++;
