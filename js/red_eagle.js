@@ -78,14 +78,43 @@ B.splice = function(s, marker) {
     return {value: v, start: m, end: n};
 }
 
+B.update = function(t){
+    this.value = t.value;
+    this.selectionStart = t.start;
+    this.selectionEnd = t.end;
+    return this;
+};
+
 B.ondblclick = function(e) {
     e.preventDefault();
-    var line = this.selected_line(true);
-    var s = this.splice("cows");
-    this.value = s.value;
-    this.selectionStart = s.start;
-    this.selectionEnd = s.end;
-    //console.log(this.selected_line(true));
+    if (!Tree(this).has_children()) {
+	var line = this.selected_line(true);
+	var s = this.splice("cows");
+	this.update(s);
+    } else {
+	var s = Tree(this).remove_children();
+	this.update(s);
+    }
+};
+
+//text is a string with a selection.
+B.as_text = function(){
+    return { value: this.value, start: this.selectionStart, end: this.selectionEnd};
+};
+
+var Tree = function(that){
+    var T = function(that) {
+	this.client = that;
+    };
+    T.prototype.has_children = function() {
+	var a = this.client.lines.after().split("\n")[0];
+	return a.match(/^( *)/)[1].length > this.client.lines.indent();
+    }
+    T.prototype.remove_children = function() {
+	console.log("not implemented: remove_children");
+	return this.client.as_text();
+    }
+    return new T(that);
 };
 
 var note = function(msg) {
