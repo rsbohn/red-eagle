@@ -89,7 +89,7 @@ B.splice = function(s, marker) {
     var indent = this.lines.indent();
     var marked = s.split("\n").map(function(t){return indent+"  "+marker+" "+t}).join("\n");
     this.forward_eol();
-    document.execCommand("insertText", false, "\n"+marked);
+    document.execCommand("insertText", false, "\n"+marked+"\n");
 };
 
 B.update = function(t){
@@ -100,13 +100,12 @@ B.update = function(t){
 };
 
 B.ondblclick = function(e) {
-    e.preventDefault();
+    e.defaultPrevented=true;
+    if (this.lines.current() === "") return;
     if (!Tree(this).has_children()) {
-	var line = this.selected_line(true);
 	this.splice("cows");
     } else {
-	var s = Tree(this).remove_children();
-	this.update(s);
+	Tree(this).remove_children();
     }
 };
 
@@ -124,8 +123,21 @@ var Tree = function(that){
 	return a.match(/^( *)/)[1].length > this.client.lines.indent();
     }
     T.prototype.remove_children = function() {
-	console.log("not implemented: remove_children");
-	return this.client.as_text();
+	var indent = this.client.lines.indent();
+	this.client.forward_eol();
+	this.client.selectionStart++;
+	var start = this.client.selectionStart;
+	var end = start+1;
+	while (end < this.client.value.length) {
+	    if (this.client.lines.indent() <= indent) break;
+	    this.client.forward_eol();
+	    this.client.selectionStart++;
+	    end = this.client.selectionStart;
+	}
+	this.client.selectionStart = start;
+	this.client.selectionEnd = end;
+	document.execCommand("delete");
+	return this.client;
     }
     return new T(that);
 };
