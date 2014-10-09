@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>re:codemirror</title>
+    <script src="//codemirror.net/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css" />
+  </head>
+  <body>
+    <div id="remotestorage-connect"></div>
+    <div id="qmenu"></div>
+    <div id="editor"></div>
+    <div id="footer"></div>
+  </body>
+  <script>
+    var cm=CodeMirror(document.getElementById('editor'),
+    { lineNumbers: true });
+    var qmenu=document.getElementById('qmenu');
+    var status=document.getElementById('footer');
+
+    footer.textContent="OK";
+    cm.setValue(localStorage.scratch);
+  </script>
+</html>
