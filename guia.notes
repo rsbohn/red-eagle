@@ -6,14 +6,16 @@
     - red_eagle.js
     + red_eagle.js~
     + remotestorage.min.js
+  + guia.notes
+  + #guia.notes#
   + .gitignore
+  + guia.notes~
   + index.html
   + index.html~
+  - mirror.html
+  + mirror.html~
   + site.css
   + site.css~
-  @git/status/
-    | Not a git repository.  Create a new one here?
-    - setup/create/
 
 5apps	git@5apps.com:rsbohn_red-eagle.git (fetch)
 5apps	git@5apps.com:rsbohn_red-eagle.git (push)

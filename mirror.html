@@ -2,9 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
     <title>re:codemirror</title>
     <script src="//codemirror.net/lib/codemirror.js"></script>
     <link rel="stylesheet" href="//codemirror.net/lib/codemirror.css" />
+    <script src="/js/remotestorage.min.js"></script>
+    <script src="/js/remoteNotes.js"></script>
   </head>
   <body>
     <div id="remotestorage-connect"></div>
@@ -13,8 +16,11 @@
     <div id="footer"></div>
   </body>
   <script>
+    window.remoteEnable = function() {
+        remoteStorage.displayWidget();
+    };
     var cm=CodeMirror(document.getElementById('editor'),
-    { lineNumbers: true });
+        { lineNumbers: true });
     var qmenu=document.getElementById('qmenu');
     var status=document.getElementById('footer');
 
