@@ -1,23 +1,11 @@
-
-2014-09-30
 /home/rsbohn/build/re2/
-  - js/
-    + jquery-2.1.1.min.js
-    - red_eagle.js
-    + red_eagle.js~
-    + remotestorage.min.js
+  + js/
   + guia.notes
-  + #guia.notes#
   + .gitignore
-  + guia.notes~
   + index.html
-  + index.html~
-  - mirror.html
-  + mirror.html~
+  + mirror.html
   + site.css
-  + site.css~
 
-5apps	git@5apps.com:rsbohn_red-eagle.git (fetch)
-5apps	git@5apps.com:rsbohn_red-eagle.git (push)
-hummer	ssh://rsbohn@192.168.2.21/work/red-eagle (fetch)
-hummer	ssh://rsbohn@192.168.2.21/work/red-eagle (push)
+http://red-eagle.5apps.com
+http://red-eagle.5apps.com/codemirror
+
