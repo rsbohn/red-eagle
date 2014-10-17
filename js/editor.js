@@ -1,15 +1,4 @@
-var editor = CodeMirror(document.getElementById('editor'),
-        { lineNumbers: true });
-        
-editor.setValue(localStorage.scratch || "Welcome to Red Eagle.");
-editor.on('dblclick', B.expand_or_contract);
-
-var inject = function(url) {
-    var script = document.createElement('script');
-    script.src = url;
-    document.head.appendChild(script);
-}
-        
+// xiki-inspired editor
 var B = {};
 B.line = {
     current: function(editor, offset) {
@@ -49,7 +38,6 @@ B.tree = {
 };
 B.expand_or_contract = function(editor, event) {
     if (B.tree.has_children(editor)) {
-        console.log("has_children=true");
         B.tree.remove_children(editor);
     } else {
         var text = "\n"+B.line.indent(editor)+"  | cows";
@@ -57,6 +45,13 @@ B.expand_or_contract = function(editor, event) {
     }
     event.codemirrorIgnore=true;
 };
+
+var editor = CodeMirror(document.getElementById('editor'),
+        { lineNumbers: true });
+
+editor.setValue(localStorage.scratch || "Welcome to Red Eagle.");
+editor.on('dblclick', B.expand_or_contract);
+
 
 var Menus = {
     hello: function(){return "Welcome to Red Eagle."},
