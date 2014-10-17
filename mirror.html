@@ -14,17 +14,14 @@
     <div id="qmenu"></div>
     <div id="editor"></div>
     <div id="footer"></div>
-  </body>
-  <script>
-    window.remoteEnable = function() {
+    <script src="/js/editor.js"></script>
+    <script>
         remoteStorage.displayWidget();
-    };
-    var cm=CodeMirror(document.getElementById('editor'),
-        { lineNumbers: true });
-    var qmenu=document.getElementById('qmenu');
-    var status=document.getElementById('footer');
 
-    footer.textContent="OK";
-    cm.setValue(localStorage.scratch);
-  </script>
+      var qmenu=document.getElementById('qmenu');
+      var status=document.getElementById('footer');
+
+      footer.textContent="OK";
+    </script>
+  </body>
 </html>
