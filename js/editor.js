@@ -36,24 +36,38 @@ B.tree = {
         }
     }
 };
+//start with cows
+B._eval = function(s){
+  try {return eval(s);}
+  catch(ex){
+    if (ex.name !== "SyntaxError") return ex.message;
+    return "| cows";
+  }
+};
+B.fill = function(editor, indent, target){
+  return "\n  " + indent + this._eval(target);
+};
+
 B.expand_or_contract = function(editor, event) {
     if (B.tree.has_children(editor)) {
         B.tree.remove_children(editor);
     } else {
-        var text = "\n"+B.line.indent(editor)+"  | cows";
-        B.splice(editor, text);
+	var indent = B.line.indent(editor);
+	var target = B.line.current(editor);
+	B.splice(editor, B.fill(editor, indent, target));
     }
     event.codemirrorIgnore=true;
 };
 
-var editor = CodeMirror(document.getElementById('editor'),
+var ed = CodeMirror(document.getElementById('editor'),
         { lineNumbers: true });
 
-editor.setValue(localStorage.scratch || "Welcome to Red Eagle.");
-editor.on('dblclick', B.expand_or_contract);
+ed.setValue(localStorage.scratch || "Welcome to Red Eagle.");
+ed.on('dblclick', B.expand_or_contract);
 
 
 var Menus = {
     hello: function(){return "Welcome to Red Eagle."},
     echo: function(args){return JSON.stringify(args)}
 };
+
