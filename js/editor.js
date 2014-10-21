@@ -56,7 +56,7 @@ B.expand_or_contract = function(editor, event) {
 	var target = B.line.current(editor);
 	B.splice(editor, B.fill(editor, indent, target));
     }
-    event.codemirrorIgnore=true;
+    (event||{}).codemirrorIgnore=true;
 };
 
 var ed = CodeMirror(document.getElementById('editor'),
