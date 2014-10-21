@@ -64,6 +64,7 @@ var ed = CodeMirror(document.getElementById('editor'),
 
 ed.setValue(localStorage.scratch || "Welcome to Red Eagle.");
 ed.on('dblclick', B.expand_or_contract);
+ed.addKeyMap({"Ctrl-Enter":B.expand_or_contract});
 
 
 var Menus = {
