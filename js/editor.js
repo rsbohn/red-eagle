@@ -56,15 +56,23 @@ B.expand_or_contract = function(editor, event) {
 	var target = B.line.current(editor);
 	B.splice(editor, B.fill(editor, indent, target));
     }
-    event.codemirrorIgnore=true;
+    (event || {}).codemirrorIgnore=true;
 };
+B.local_load = function(editor){
+    B.tag = B.line.current(editor).trim();
+    ed.setValue(localStorage[B.tag] || "adrift");
+};
+  
 
 var ed = CodeMirror(document.getElementById('editor'),
         { lineNumbers: true });
 
-ed.setValue(localStorage.scratch || "Welcome to Red Eagle.");
+ed.setValue(localStorage.scratch || "Welcome to Red Eagle. Press Ctrl-Enter for cows.");
 ed.on('dblclick', B.expand_or_contract);
-ed.addKeyMap({"Ctrl-Enter":B.expand_or_contract});
+ed.addKeyMap({
+  "Ctrl-Enter":B.expand_or_contract,
+  "Ctrl-/":B.local_load
+});
 
 
 var Menus = {
