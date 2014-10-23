@@ -1,6 +1,6 @@
 // xiki-inspired editor
 var B = {
-    history: [];
+    history: []
 };
 B.line = {
     first: function(editor){
