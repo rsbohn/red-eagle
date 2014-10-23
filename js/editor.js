@@ -1,6 +1,11 @@
 // xiki-inspired editor
-var B = {};
+var B = {
+    history: [];
+};
 B.line = {
+    first: function(editor){
+    	return editor.getRange({line:0,ch:0},{line:0});
+    },
     current: function(editor, offset) {
         var dot = editor.getCursor();
         offset = offset || 0;
@@ -62,6 +67,15 @@ B.local_load = function(editor){
     B.tag = B.line.current(editor).trim();
     ed.setValue(localStorage[B.tag] || "adrift");
 };
+//save to localStorage. Put desired name on first line, after ':'
+B.save_me = function(editor){
+    B.tag = B.line.first().split(':').reverse()[0].trim();
+    var previous = localStorage[B.tag];
+    if(previous !== undefined]) {
+    	B.history.push(previous);
+    }
+    localStorage[B.tag]=editor.getValue();
+}
   
 
 var ed = CodeMirror(document.getElementById('editor'),
