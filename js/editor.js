@@ -71,7 +71,7 @@ B.local_load = function(editor){
 B.save_me = function(editor){
     B.tag = B.line.first().split(':').reverse()[0].trim();
     var previous = localStorage[B.tag];
-    if(previous !== undefined]) {
+    if(previous !== undefined) {
     	B.history.push(previous);
     }
     localStorage[B.tag]=editor.getValue();
