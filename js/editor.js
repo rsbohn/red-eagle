@@ -69,7 +69,7 @@ B.local_load = function(editor){
 };
 //save to localStorage. Put desired name on first line, after ':'
 B.save_me = function(editor){
-    B.tag = B.line.first().split(':').reverse()[0].trim();
+    B.tag = B.line.first(editor).split(':').reverse()[0].trim();
     var previous = localStorage[B.tag];
     if(previous !== undefined) {
     	B.history.push(previous);
