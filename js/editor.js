@@ -75,6 +75,7 @@ B.save_me = function(editor){
     	B.history.push(previous);
     }
     localStorage[B.tag]=editor.getValue();
+    return B.tag;
 }
   
 
