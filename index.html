@@ -7,17 +7,24 @@
     <link rel="shortcut icon" href="//faviconist.com/icons/d9e98beb0e4f9d555fef21c700bdb093/favicon.ico" />
     <link rel="stylesheet" href="/site.css"/>
     <script src="/js/jquery-2.1.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ramda/0.7.2/ramda.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/q.js/1.1.1/q.min.js"></script>
     <!-- <script src="/js/remotestorage.min.js"></script> -->
+    <script src="//codemirror.net/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="//codemirror.net/lib/codemirror.css" />
   </head>
   <body>
     <div id="content">
       <div id="remotestorage-connect"></div>
-      <div class="track"></div>
-      <textarea id="B" cols="96" rows="20">Do you like cows?
-
-Double click any line to see more cows.</textarea>
-      <footer>OK</footer>
+      <div id="qmenu"></div>
+      <div id="editor"></div>
+      <footer>loading...</footer>
     </div>
-    <script src="/js/red_eagle.js"></script>
+    <script src="/js/editor.js"></script>
+    <script>
+      var qmenu = document.getElementById('qmenu');
+      $(".CodeMirror").css("height",window.innerHeight*0.92);
+      $("footer").text("OK");
+    </script>
   </body>
 </html>
