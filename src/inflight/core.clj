@@ -1,15 +1,21 @@
 (ns inflight.core
 
 )
-
+(use 'ring.middleware.content-type)
 (use 'ring.adapter.jetty)
-(defn handler [request]
-  { :status 200
-    :headers {"Content-Type" "text/html"}
-    :body "These are the times that try men's souls."})
+(use 'clojure.java.io)
 
+(def pages {
+  "/" (fn [] (redirect "/index.html"))
+  "/index.html" (fn [] (response (file "resources/index.html")))
+})
+(defn handler [request]
+  (pages (:path request)))
+
+(def app (-> handler
+	(wrap-content-type)))
 
 (defn -main 
   "Start jetty use handler"
   [& args]
-  (run-jetty handler {:port 3000}))
+  (run-jetty app {:port 3000}))
