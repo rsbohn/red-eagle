@@ -67,9 +67,12 @@ B.local_load = function(editor){
     B.tag = B.line.current(editor).trim();
     ed.setValue(localStorage[B.tag] || "adrift");
 };
+B.get_tag = function(editor){
+    return B.line.first(editor).split(":").reverse()[0].trim(); 
+}
 //save to localStorage. Put desired name on first line, after ':'
 B.save_me = function(editor){
-    B.tag = B.line.first(editor).split(':').reverse()[0].trim();
+    B.tag = B.get_tag(editor);
     var previous = localStorage[B.tag];
     if(previous !== undefined) {
     	B.history.push(previous);
