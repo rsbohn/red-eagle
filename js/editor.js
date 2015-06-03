@@ -63,9 +63,12 @@ B.expand_or_contract = function(editor, event) {
     }
     (event || {}).codemirrorIgnore=true;
 };
+B.empty_file(tag) {
+	return "/*:"+(tag||"adrift")+"\n";
+}
 B.local_load = function(editor){
     B.tag = B.line.current(editor).trim();
-    ed.setValue(localStorage[B.tag] || "adrift");
+    ed.setValue(localStorage[B.tag] || B.empty_file(B.tag));
 };
 B.get_tag = function(editor){
     return B.line.first(editor).split(":").reverse()[0].trim(); 
