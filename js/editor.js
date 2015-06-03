@@ -63,7 +63,7 @@ B.expand_or_contract = function(editor, event) {
     }
     (event || {}).codemirrorIgnore=true;
 };
-B.empty_file(tag) {
+B.empty_file = function(tag) {
 	return "/*:"+(tag||"adrift")+"\n";
 }
 B.local_load = function(editor){
