@@ -19,8 +19,11 @@ B.line = {
 };
 
 B.splice = function(editor, text) {
-    editor.setCursor({line:editor.getCursor().line})
+    var line = editor.getCursor().line;
+    editor.setCursor({line:line});
     editor.replaceSelection(text);
+    editor.setCursor({line:line});
+    return editor;
 };
 B.kill_line = function(editor, offset) {
     var dot = editor.getCursor();
@@ -88,7 +91,6 @@ B.save_me = function(editor){
 var ed = CodeMirror(document.getElementById('editor'),
         { lineNumbers: true });
 
-ed.setValue(localStorage.scratch || "Welcome to Red Eagle. Press Ctrl-Enter for cows.");
 ed.on('dblclick', B.expand_or_contract);
 ed.addKeyMap({
   "Ctrl-Enter":B.expand_or_contract,
@@ -101,3 +103,4 @@ var Menus = {
     echo: function(args){return JSON.stringify(args)}
 };
 
+ed.setValue(localStorage.scratch || "Welcome to Red Eagle. Press Ctrl-Enter for cows.");
